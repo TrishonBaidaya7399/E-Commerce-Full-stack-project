@@ -32,7 +32,7 @@ function NavIcons() {
         <PiUserCircle size="30" />
         {/* profile open dropdown */}
         {isProfileOpen && (
-          <div className="profile_dropdown absolute top-[50px] right-2 flex flex-col gap-2 text-md font-semibold text-gray-dark shadow-xl shadow-gray px-8 py-2 rounded-md z-20">
+          <div className="profile_dropdown absolute top-[50px] right-2 flex flex-col gap-2 text-md font-semibold text-gray-dark shadow-xl shadow-gray px-8 py-2 rounded-md z-20 bg-whiteColor border-[1px] border-line_color">
             <Link href="/" className="cursor-pointer">
               Profile
             </Link>
@@ -50,7 +50,7 @@ function NavIcons() {
       </div>
       <div className="item cursor-pointer relative">
         <div className="relative">
-          <div className="absolute -top-2 left-4 w-5 h-5 rounded-full bg-red-dark text-whiteColor backdrop-blur-sm text-sm text-center">
+          <div className="absolute -top-2 left-4 w-5 h-5 rounded-full bg-red-dark text-whiteColor text-sm text-center">
             1
           </div>
           <BsCart3 size="30" onClick={handleCart} />

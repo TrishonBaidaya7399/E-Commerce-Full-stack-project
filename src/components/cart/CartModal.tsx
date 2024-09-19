@@ -39,7 +39,7 @@ const cartItems = [
 
 export default function CartModal() {
   return (
-    <div className="profile_dropdown absolute top-[50px] right-1 text-md font-semibold shadow-xl shadow-gray rounded-md z-20 p-6 w-[300px] md:w-[400px] flex flex-col gap-6">
+    <div className="profile_dropdown absolute top-[50px] right-1 text-md font-semibold shadow-xl shadow-gray rounded-md z-20 p-6 w-[300px] md:w-[400px] flex flex-col gap-6 bg-whiteColor border-[1px] border-line_color">
       <div className="cart_title text-black text-xl font-semibold text-left">
         Shopping Cart
       </div>

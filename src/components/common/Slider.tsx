@@ -1,60 +1,62 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+const slideData = [
+  {
+    _id: 1,
+    title: "Wireless Headphones",
+    description:
+      "Experience high-quality sound with our latest wireless headphones.",
+    img: "/prod_1.avif",
+    url: "/products/wireless-headphones",
+    bg: "bg-gradient-to-r from-yellow-500 via-yellow-100 to-pink-500",
+  },
+  {
+    _id: 2,
+    title: "Smart Watch",
+    description:
+      "Stay connected and track your fitness with our cutting-edge smart watches.",
+    img: "/prod_2.jpg",
+    url: "/products/smart-watch",
+    bg: "bg-gradient-to-r from-orange-300 to-orange-100",
+  },
+  {
+    _id: 3,
+    title: "Bluetooth Speaker",
+    description:
+      "Bring the party wherever you go with our portable Bluetooth speakers.",
+    img: "/prod_3.webp",
+    url: "/products/bluetooth-speaker",
+    bg: "bg-gradient-to-r from-yellow-500 via-red-300 to-pink-200",
+  },
+  {
+    _id: 4,
+    title: "4K Ultra HD TV",
+    description:
+      "Immerse yourself in stunning visuals with our 4K Ultra HD TVs.",
+    img: "/prod_4.jpg",
+    url: "/products/4k-ultra-hd-tv",
+    bg: "bg-gradient-to-r from-blue-300 to-indigo-100",
+  },
+];
 export default function Slider() {
-  const slideData = [
-    {
-      _id: 1,
-      title: "Wireless Headphones",
-      description:
-        "Experience high-quality sound with our latest wireless headphones.",
-      img: "/prod_1.avif",
-      url: "/products/wireless-headphones",
-      bg: "bg-gradient-to-r from-yellow-500 via-yellow-100 to-pink-500",
-    },
-    {
-      _id: 2,
-      title: "Smart Watch",
-      description:
-        "Stay connected and track your fitness with our cutting-edge smart watches.",
-      img: "/prod_2.jpg",
-      url: "/products/smart-watch",
-      bg: "bg-gradient-to-r from-purple-300 to-purple-100",
-    },
-    {
-      _id: 3,
-      title: "Bluetooth Speaker",
-      description:
-        "Bring the party wherever you go with our portable Bluetooth speakers.",
-      img: "/prod_3.webp",
-      url: "/products/bluetooth-speaker",
-      bg: "bg-gradient-to-r from-yellow-500 via-red-300 to-pink-200",
-    },
-    {
-      _id: 4,
-      title: "4K Ultra HD TV",
-      description:
-        "Immerse yourself in stunning visuals with our 4K Ultra HD TVs.",
-      img: "/prod_4.jpg",
-      url: "/products/4k-ultra-hd-tv",
-      bg: "bg-gradient-to-r from-purple-400 to-indigo-100",
-    },
-    {
-      _id: 5,
-      title: "Gaming Laptop",
-      description: "Powerful gaming laptops for serious gamers.",
-      img: "https://images.pexels.com/photos/438643/pexels-photo-438643.jpeg?auto=compress&cs=tinysrgb&w=600",
-      url: "/products/gaming-laptop",
-      bg: "bg-gradient-to-r from-gray-700 via-gray-900 to-black",
-    },
-  ];
+  const [current, setCurrent] = useState(3);
 
-  const [current, setCurrent] = useState(2);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrent((prev) => (prev === slideData?.length -1 ? 0 : prev + 1));
+  //   }, 3000);
+
+  //   return () => clearInterval(interval);
+  // }, [current]);
 
   return (
-    <div className="slider_component h-[calc(100vh-80px)] overflow-hidden">
-      <div className="w-max h-full flex transition-all ease-in-out duration-1000">
+    <div className="slider_component h-[calc(100vh-80px)] overflow-hidden relative">
+      <div
+        className="w-max h-screen flex transition-all ease-in-out duration-1000"
+        style={{ transform: `translateX(-${current * 100}vw)` }}
+      >
         {slideData.map((slide) => (
           <div
             key={slide?._id}
@@ -85,7 +87,21 @@ export default function Slider() {
           </div>
         ))}
       </div>
-      slider
+      <div className="absolute left-1/2 bottom-8 transform -translate-x-1/2 flex gap-8">
+        {slideData.map((slide, index) => (
+          <div
+            className={`w-3 h-3 rounded-full ring-1 ring-gray-dark cursor-pointer flex items-center justify-center ${
+              current === index ? "scale-150" : ""
+            }`}
+            key={slide?._id}
+            onClick={() => setCurrent(index)}
+          >
+            {current === index && (
+              <div className="w-[6px] h-[6px] bg-gray-dark rounded-full"></div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

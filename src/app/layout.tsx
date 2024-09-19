@@ -7,7 +7,7 @@ import Navbar from "@/components/shared/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lama Dev E-Commerce Application",
+  title: "E-Commerce Application",
   description: "A complete e-commerce application with Next.js and Wix",
 };
 
@@ -18,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
-        <Navbar />
+      <body className={`${inter.className} bg-bgColor-light`}>
+      
         {children}
-        <Footer />
+      
       </body>
     </html>
   );

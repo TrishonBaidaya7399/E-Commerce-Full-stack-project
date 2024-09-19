@@ -48,6 +48,12 @@
   width: 3px;
   height: 3px;
 }
+.hidden-scrollbar::-webkit-scrollbar {
+ display: none;
+}
+.hidden-scrollbar{
+ scrollbar-width: none;
+}
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #f1f1f12e;

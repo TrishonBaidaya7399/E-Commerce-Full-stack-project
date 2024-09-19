@@ -14,7 +14,7 @@ export default function Menu() {
       {/* mobile screen */}
       <div className="topbar flex md:hidden  item-center justify-between w-full">
         <Link href={"/"} className="flex items-center justify-center ">
-          <div className="text-2xl tracking-wide flex md:hidden">LAMA</div>
+          <div className="text-2xl tracking-wide flex md:hidden">ElectroMart</div>
         </Link>
         <div className="menu_icon block md:hidden">
           {!open ? (
@@ -80,8 +80,8 @@ export default function Menu() {
         "
         >
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="lama dev" width={24} height={24} />
-            <div className="text-2xl tracking-wide">LAMA</div>
+            <Image src="/logo.png" alt="electromart dev" width={24} height={24} />
+            <div className="text-2xl tracking-wide">ElectroMart</div>
           </Link>
           <div className="hidden xl:flex items-center gap-6">
             <Link
