@@ -11,7 +11,7 @@ import {
 
 export default function Footer() {
   return (
-    <div className="mt-24 w-full px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 shadow-xl bg-whiteColor py-8 md:py-12">
+    <div className="mt-24 w-full px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 shadow-xl bg-bgColor-dark py-8 md:py-12">
       {/* top part */}
       <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-12 lg:gap-24">
         <div className="left w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
