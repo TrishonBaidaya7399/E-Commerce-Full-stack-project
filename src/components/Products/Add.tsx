@@ -13,9 +13,14 @@ export default function Add() {
     }
   };
 
-  const handleCart = () => {
-    setStock((prev) => prev - 1);
+  const handleCart = (quantity: number) => {
+    setStock((prev) => prev - quantity);
     alert("Item added to the cart successfylly");
+    if (quantity > 1) {
+      setQuantity(1);
+    } else {
+      setQuantity(0);
+    }
   };
 
   return (
@@ -25,7 +30,7 @@ export default function Add() {
         <div className="left quantity flex flex-row items-center gap-6">
           <div className="button_part text-lg bg-bgColor-dark rounded-full px-4 py-2 w-[150px] flex flex-row items-center justify-between text-black">
             <button
-              disabled={quantity === 1}
+              disabled={quantity === 1 || stock === 0}
               className="disabled:cursor-not-allowed"
               onClick={() => handleQuantity("decrease")}
             >
@@ -33,7 +38,7 @@ export default function Add() {
             </button>
             <p className="quantity">{quantity}</p>
             <button
-              disabled={quantity === stock}
+              disabled={quantity === stock || stock === 0}
               className="disabled:cursor-not-allowed"
               onClick={() => handleQuantity("increase")}
             >
@@ -57,7 +62,8 @@ export default function Add() {
         <div className="add_to_cart">
           {" "}
           <button
-            onClick={() => handleCart()}
+            disabled={stock === 0}
+            onClick={() => handleCart(quantity)}
             className="border-2 border-red-dark text-red-dark rounded-full py-2 px-5 text-md font-semibold hover:text-whiteColor hover:bg-red-dark bg-whiteColor duration-500 ease-in-out w-fit disabled:cursor-not-allowed disabled:bg-red-light disabled:border-red-light disabled:text-red-300"
           >
             Add to Cart

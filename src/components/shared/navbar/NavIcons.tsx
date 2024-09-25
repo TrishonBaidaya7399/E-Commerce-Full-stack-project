@@ -1,16 +1,20 @@
 "use client";
 
 import CartModal from "@/components/cart/CartModal";
+import { ThemeContext } from "@/context/ThemeContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
+import { FiSun } from "react-icons/fi";
 import { HiOutlineBellAlert } from "react-icons/hi2";
+import { IoMoonOutline } from "react-icons/io5";
 import { PiUserCircle } from "react-icons/pi";
 
 function NavIcons() {
   const router = useRouter();
+  const { theme, setTheme } = useContext(ThemeContext);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const isLoggedIn = false;
@@ -73,6 +77,13 @@ function NavIcons() {
               </div>
             )}
           </>
+        )}
+      </div>
+      <div className="item cursor-pointer">
+        {theme === "light" ? (
+          <IoMoonOutline size="30" onClick={() => setTheme("dark")} />
+        ) : (
+          <FiSun size="30" onClick={() => setTheme("light")} />
         )}
       </div>
     </div>

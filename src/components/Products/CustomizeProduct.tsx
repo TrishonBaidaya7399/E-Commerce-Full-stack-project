@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+
 type Color = {
   name: string;
   bgColor: string;
@@ -10,6 +11,7 @@ type Size = {
   name: string;
   quantity: number;
 };
+
 export default function CustomizeProduct() {
   const colors = [
     { name: "Red", bgColor: "bg-red-500", quantity: 5 },
@@ -34,15 +36,14 @@ export default function CustomizeProduct() {
         {colors.map((color, index) => (
           <li
             key={index}
-            className={`w-8 h-8 rounded-full ring-2 ring-gray-300 cursor-pointer relative ${
-              color.bgColor
-            } ${
-              color.quantity === 0
-                ? "cursor-not-allowed opacity-50"
-                : selectedColor === color.name
-                ? "ring-2 ring-blue-500"
-                : ""
-            }`}
+            className={`w-10 h-10 p-1 rounded-full cursor-pointer relative 
+              ${color.bgColor} 
+              ${color.quantity === 0 ? "cursor-not-allowed opacity-30" : ""}
+              ${
+                selectedColor === color.name
+                  ? "ring-4 ring-blue-500"
+                  : "ring-2 ring-gray-300"
+              }`}
             onClick={() => {
               if (color.quantity > 0) setSelectedColor(color.name);
             }}
@@ -59,13 +60,14 @@ export default function CustomizeProduct() {
         {sizes.map((size, index) => (
           <li
             key={index}
-            className={`border-2 rounded-md py-1 px-3 text-md font-semibold w-fit ${
-              size.quantity === 0
-                ? "cursor-not-allowed opacity-50 border-red-light text-red-400 bg-red-light"
-                : selectedSize === size.name
-                ? "border-red-dark text-whiteColor bg-red-dark"
-                : "cursor-pointer border-red-dark text-red-dark"
-            }`}
+            className={`border-2 rounded-md py-1 px-3 text-md font-semibold w-fit 
+              ${
+                size.quantity === 0
+                  ? "cursor-not-allowed opacity-50 border-red-light text-red-400 bg-red-light"
+                  : selectedSize === size.name
+                  ? "border-red-dark text-white bg-red-dark"
+                  : "cursor-pointer border-red-dark text-red-dark"
+              }`}
             onClick={() => {
               if (size.quantity > 0) setSelectedSize(size.name);
             }}

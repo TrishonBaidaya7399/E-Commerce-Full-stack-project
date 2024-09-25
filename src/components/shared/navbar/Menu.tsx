@@ -10,9 +10,9 @@ import NavIcons from "./NavIcons";
 export default function Menu() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="menu_container flex items-center justify-center w-full">
+    <div className="menu_container bg-whiteColor flex items-center justify-center w-full">
       {/* mobile screen */}
-      <div className="topbar flex md:hidden  item-center justify-between w-full">
+      <div className="topbar flex md:hidden item-center justify-between w-full">
         <Link href={"/"} className="flex items-center justify-center ">
           <div className="text-2xl tracking-wide flex md:hidden">ElectroMart</div>
         </Link>
