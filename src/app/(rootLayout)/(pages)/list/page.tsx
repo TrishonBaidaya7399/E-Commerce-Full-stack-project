@@ -5,7 +5,7 @@ import React from "react";
 
 function listPage() {
   return (
-    <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
+    <div className="px-4 md:px-8 lg:px-16 xl:px-[100px] relative">
       {/* Campaign */}
       <div className="campaign_container hidden sm:flex bg-pink-50 px-6 sm:px-12 md:px-24 lg:px-[200px] justify-between h-64">
         <div className="text_container w-2/3 flex flex-col items-start justify-center gap-8">

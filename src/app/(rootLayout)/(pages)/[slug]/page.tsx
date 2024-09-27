@@ -5,7 +5,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex flex-col lg:flex-row gap-16 mt-12">
+    <div className="px-4 md:px-8 lg:px-16 xl:px-[100px] flex flex-col lg:flex-row gap-16 mt-12">
       <div className="image_container w-full lg:w-1/2 lg:sticky top-20 h-max">
         <ProductsImages />
       </div>

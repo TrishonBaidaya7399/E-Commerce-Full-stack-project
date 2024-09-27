@@ -36,7 +36,7 @@ export default function Add() {
             >
               -
             </button>
-            <p className="quantity">{quantity}</p>
+            <p className="quantity">{stock === 0 ? 0 : quantity}</p>
             <button
               disabled={quantity === stock || stock === 0}
               className="disabled:cursor-not-allowed"
@@ -50,13 +50,25 @@ export default function Add() {
               stock <= 0 ? "text-red-dark" : "text-gray-dark"
             }`}
           >
-            Only{" "}
-            <span className="text-orange-500 font-semibold ">
-              {quantity < stock ? stock - quantity : 0} items
-            </span>{" "}
-            left!
-            <br />
-            Don't miss it{" "}
+            {stock > 0 ? (
+              <p>
+                Only{" "}
+                <span className="text-orange-500 font-semibold ">
+                  {quantity < stock ? stock - quantity : 0} items
+                </span>{" "}
+                left!
+                <br />
+                Don't miss it{" "}
+              </p>
+            ) : (
+              <p>
+                <span className="text-orange-500 font-semibold text-2xl">
+                  Stock out!
+                </span>{" "}
+                <br />
+                Please keep shopping with another items
+              </p>
+            )}
           </div>
         </div>
         <div className="add_to_cart">
