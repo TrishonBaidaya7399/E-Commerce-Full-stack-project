@@ -35,7 +35,7 @@ export default function ProductsImages() {
             <div
               key={image?._id}
               className="relative w-1/4 h-32 hover:h-[150px] hover:w-[250px] gap-4 rounded-md hover:drop-shadow-xl duration-300 border-[1px] border-gray-100 bg-whiteColor"
-              onClick={() => setIndex(i)}
+              onMouseOver={() => setIndex(i)}
             >
               <Image
                 fill
