@@ -4,17 +4,10 @@ import React, { useState } from "react";
 import ReactImageMagnifier from "simple-image-magnifier/react";
 
 const ProductsImages = ({ items }: { items: any }) => {
-  // const images = [
-  //   { _id: 1, url: "/prod_2.jpg" },
-  //   { _id: 1, url: "/prod_3.webp" },
-  //   { _id: 1, url: "/prod_4.jpg" },
-  //   { _id: 1, url: "/prod_5.jpeg" },
-  //   { _id: 1, url: "/product.png" },
-  // ];
   const [index, setIndex] = useState(0);
   return (
     <div className="product_image_container flex flex-col gap-8">
-      <div className="large_image h-[500px] relative">
+      <div className="large_image h-[600px] relative">
         <Image
           fill
           src={items[index]?.image?.url}
@@ -23,14 +16,14 @@ const ProductsImages = ({ items }: { items: any }) => {
           className="object-cover rounded-md drop-shadow-xl"
         />
         {/* <ReactImageMagnifier
-          srcOriginal={images[index]?.url}
-          srcPreview={images[index]?.url}
+          srcOriginal={items[index]?.image?.ur}
+          srcPreview={items[index]?.image?.ur}
           width="100%"
           className="object-cover rounded-md drop-shadow-xl"
         /> */}
       </div>
       {items.length > 0 && (
-        <div className="min-images flex flex-row justify-between gap-4 cursor-pointer">
+        <div className="min-images flex flex-row justify-start gap-4 cursor-pointer">
           {items.map((image: any, i: number) => (
             <div
               key={image?._id}

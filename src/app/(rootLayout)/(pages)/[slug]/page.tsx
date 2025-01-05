@@ -6,18 +6,16 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
-  console.log({ paras: params.slug });
   const wixClient = await wixClientServer();
   const products = await wixClient.products
     .queryProducts()
     .eq("slug", params?.slug)
     .find();
-  console.log(products);
   if (!products.items[0]) {
     return notFound();
   }
   const product = products.items[0];
-  console.log(product);
+  console.log(product?.productOptions);
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-[100px] flex flex-col lg:flex-row gap-16 mt-12">
       <div className="image_container w-full lg:w-1/2 lg:sticky top-20 h-max">
@@ -33,57 +31,39 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
         </p>
         <div className="divider h-[2px] bg-divider_color rounded-full" />
         <div className="product_price flex items-center gap-4">
-          <h3 className="text-xl text-gray-400 line-through">$59</h3>
-          <h2 className="text-2xl font-medium text-gray-dark">$49</h2>
+          Price:
+          {product?.priceData?.price !==
+            product?.priceData?.discountedPrice && (
+            <h3 className="text-xl text-gray-400 line-through">
+              {product?.priceData?.price}৳
+            </h3>
+          )}
+          <h2 className="text-2xl font-medium text-gray-dark">
+            {product?.priceData?.discountedPrice}৳
+          </h2>
         </div>
         <div className="divider h-[2px] bg-divider_color rounded-full" />
-        <CustomizeProduct />
+        {product?.variants && product?.productOptions && (
+          <CustomizeProduct
+            productId={product?._id as string}
+            variants={product?.variants}
+            productOptions={product?.productOptions}
+          />
+        )}
         <Add />
         <div className="divider h-[2px] bg-divider_color rounded-full" />
         {/* product info */}
         <div className="info_part flex flex-col gap-6">
-          <div>
-            <h3 className="text-black font-medium capitalize text-xl mb-4">
-              Product info
-            </h3>
-            <p className="text-gray-dark font-normal text-md">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti
-              quae accusantium dicta qui magnam, dignissimos voluptatum rem
-              facere vel incidunt magni praesentium sed! Et accusantium
-              laboriosam ducimus iusto delectus quis. Illo commodi ex facere,
-              quo magni nesciunt libero in corrupti accusantium eius
-              dignissimos, dolorum, voluptas labore itaque officiis doloribus
-              vel?
-            </p>
-          </div>
-          <div>
-            <h3 className="text-black font-medium capitalize text-xl mb-4">
-              Product info
-            </h3>
-            <p className="text-gray-dark font-normal text-md">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti
-              quae accusantium dicta qui magnam, dignissimos voluptatum rem
-              facere vel incidunt magni praesentium sed! Et accusantium
-              laboriosam ducimus iusto delectus quis. Illo commodi ex facere,
-              quo magni nesciunt libero in corrupti accusantium eius
-              dignissimos, dolorum, voluptas labore itaque officiis doloribus
-              vel?
-            </p>
-          </div>
-          <div>
-            <h3 className="text-black font-medium capitalize text-xl mb-4">
-              Product info
-            </h3>
-            <p className="text-gray-dark font-normal text-md">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti
-              quae accusantium dicta qui magnam, dignissimos voluptatum rem
-              facere vel incidunt magni praesentium sed! Et accusantium
-              laboriosam ducimus iusto delectus quis. Illo commodi ex facere,
-              quo magni nesciunt libero in corrupti accusantium eius
-              dignissimos, dolorum, voluptas labore itaque officiis doloribus
-              vel?
-            </p>
-          </div>
+          {product?.additionalInfoSections?.map((section: any, i: number) => (
+            <div key={i}>
+              <h3 className="text-black font-medium capitalize text-xl mb-4">
+                {section?.title}
+              </h3>
+              <p className="text-gray-dark font-normal text-md">
+                {section?.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
