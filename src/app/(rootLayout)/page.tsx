@@ -25,20 +25,28 @@ const HomePage = async () => {
           Featured Products
         </h2>
         <Suspense fallback={"Loading"}>
-          <ProductList categoryId={process.env.FEATURED_PRODUCTS_CATEGORY_ID!} limit = {4}/>
+          <ProductList
+            categoryId={process.env.FEATURED_PRODUCTS_CATEGORY_ID!}
+            limit={4}
+          />
         </Suspense>
       </div>
       <div className="mt-12 md:mt-18 lg:mt-24 px-4 mx-auto">
         <h2 className="title text-2xl text-black font-semibold pb-6 px-4 md:px-8 lg:px-16 xl:px-32">
           Categories
         </h2>
-        <CategoryList />
+        <Suspense fallback={"Loading"}>
+          <CategoryList />
+        </Suspense>
       </div>
       <div className="mt-12 md:mt-18 lg:mt-24 px-4 md:px-8 lg:px-16 xl:px-32 mx-auto">
         <h2 className="title text-2xl text-black font-semibold pb-6">
           New Products
         </h2>
-        <ProductList categoryId={process.env.FEATURED_PRODUCTS_CATEGORY_ID!} limit = {4}/>
+        <ProductList
+          categoryId={process.env.FEATURED_PRODUCTS_CATEGORY_ID!}
+          limit={4}
+        />
       </div>
     </div>
   );

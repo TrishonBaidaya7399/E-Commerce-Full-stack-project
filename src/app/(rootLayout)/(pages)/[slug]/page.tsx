@@ -1,9 +1,18 @@
 import Add from "@/components/Products/Add";
 import CustomizeProduct from "@/components/Products/CustomizeProduct";
 import ProductsImages from "@/components/Products/ProductsImages";
+import { wixClientServer } from "@/lib/wixClientServer";
 import React from "react";
 
-export default function page() {
+const page = async ({ params }: { params: { slug: string } }) => {
+  console.log({ paras: params.slug });
+  const wixClient = await wixClientServer();
+  const allProducts = await wixClient.products
+    .queryProducts()
+    .eq("slug", params?.slug)
+    // .limit(limit || product_per_page)
+    .find();
+  console.log(allProducts);
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-[100px] flex flex-col lg:flex-row gap-16 mt-12">
       <div className="image_container w-full lg:w-1/2 lg:sticky top-20 h-max">
@@ -77,4 +86,6 @@ export default function page() {
       </div>
     </div>
   );
-}
+};
+
+export default page;
