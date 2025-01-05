@@ -9,9 +9,11 @@ const product_per_page = 20;
 const ProductList = async ({
   categoryId,
   limit,
+  searchParams,
 }: {
   categoryId: string;
   limit?: number;
+  searchParams?: any;
 }) => {
   const wixClient = await wixClientServer();
   const allProducts = await wixClient.products
@@ -60,7 +62,9 @@ const ProductList = async ({
                 __html: DOMPurify.sanitize(
                   product?.additionalInfoSections?.find(
                     (section: any) => section?.title === "shortDesc"
-                  )?.description || product?.description || ""
+                  )?.description ||
+                    product?.description ||
+                    ""
                 ),
               }}
             ></div>
