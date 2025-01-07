@@ -43,14 +43,19 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           </h2>
         </div>
         <div className="divider h-[2px] bg-divider_color rounded-full" />
-        {product?.variants && product?.productOptions && (
+        {product?.variants && product?.productOptions ? (
           <CustomizeProduct
             productId={product?._id as string}
             variants={product?.variants}
             productOptions={product?.productOptions}
           />
-        )}
-        <Add />
+        ) : product?._id && product?.stock?.quantity ? (
+          <Add
+            productId={product?._id}
+            variantId="00000000-000000-000000-000000000001"
+            stockNumber={product?.stock?.quantity || 0}
+          />
+        ) : null}
         <div className="divider h-[2px] bg-divider_color rounded-full" />
         {/* product info */}
         <div className="info_part flex flex-col gap-6">

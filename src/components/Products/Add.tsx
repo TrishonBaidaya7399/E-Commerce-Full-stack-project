@@ -1,12 +1,19 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Add() {
+const Add = ({
+  productId,
+  variantId,
+  stockNumber,
+}: {
+  productId: string;
+  variantId: string;
+  stockNumber: number;
+}) => {
   const [quantity, setQuantity] = useState(1);
-  const [stock, setStock] = useState(10);
 
   const handleQuantity = (type: string) => {
-    if (type === "increase" && quantity < stock) {
+    if (type === "increase" && quantity < stockNumber) {
       setQuantity((prev) => prev + 1);
     } else if (type === "decrease" && quantity > 1) {
       setQuantity((prev) => prev - 1);
@@ -14,7 +21,7 @@ export default function Add() {
   };
 
   const handleCart = (quantity: number) => {
-    setStock((prev) => prev - quantity);
+    // setStock((prev) => prev - quantity);
     alert("Item added to the cart successfylly");
     if (quantity > 1) {
       setQuantity(1);
@@ -30,15 +37,15 @@ export default function Add() {
         <div className="left quantity flex flex-row items-center gap-6">
           <div className="button_part text-lg bg-bgColor-dark rounded-full px-4 py-2 w-[150px] flex flex-row items-center justify-between text-black">
             <button
-              disabled={quantity === 1 || stock === 0}
+              disabled={quantity === 1 || stockNumber === 0}
               className="disabled:cursor-not-allowed"
               onClick={() => handleQuantity("decrease")}
             >
               -
             </button>
-            <p className="quantity">{stock === 0 ? 0 : quantity}</p>
+            <p className="quantity">{stockNumber === 0 ? 0 : quantity}</p>
             <button
-              disabled={quantity === stock || stock === 0}
+              disabled={quantity === stockNumber || stockNumber === 0}
               className="disabled:cursor-not-allowed"
               onClick={() => handleQuantity("increase")}
             >
@@ -47,14 +54,14 @@ export default function Add() {
           </div>
           <div
             className={`quantity text-xs ${
-              stock <= 0 ? "text-red-dark" : "text-gray-dark"
+              stockNumber <= 0 ? "text-red-dark" : "text-gray-dark"
             }`}
           >
-            {stock > 0 ? (
+            {stockNumber > 0 ? (
               <p>
                 Only{" "}
                 <span className="text-orange-500 font-semibold ">
-                  {quantity < stock ? stock - quantity : 0} items
+                  {quantity < stockNumber ? stockNumber - quantity : 0} items
                 </span>{" "}
                 left!
                 <br />
@@ -74,7 +81,7 @@ export default function Add() {
         <div className="add_to_cart">
           {" "}
           <button
-            disabled={stock === 0}
+            disabled={stockNumber === 0}
             onClick={() => handleCart(quantity)}
             className="border-2 border-red-dark text-red-dark rounded-full py-2 px-5 text-md font-semibold hover:text-whiteColor hover:bg-red-dark bg-whiteColor duration-500 ease-in-out w-fit disabled:cursor-not-allowed disabled:bg-red-light disabled:border-red-light disabled:text-red-300"
           >
@@ -84,4 +91,5 @@ export default function Add() {
       </div>
     </div>
   );
-}
+};
+export default Add;
