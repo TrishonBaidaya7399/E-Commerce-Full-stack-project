@@ -1,4 +1,5 @@
 "use client";
+import { useWixClient } from "@/hooks/useWixClient";
 import React, { useState } from "react";
 
 const Add = ({
@@ -11,7 +12,7 @@ const Add = ({
   stockNumber: number;
 }) => {
   const [quantity, setQuantity] = useState(1);
-
+  const wixClient = useWixClient();
   const handleQuantity = (type: string) => {
     if (type === "increase" && quantity < stockNumber) {
       setQuantity((prev) => prev + 1);
@@ -20,14 +21,19 @@ const Add = ({
     }
   };
 
-  const handleCart = (quantity: number) => {
-    // setStock((prev) => prev - quantity);
-    alert("Item added to the cart successfylly");
-    if (quantity > 1) {
-      setQuantity(1);
-    } else {
-      setQuantity(0);
-    }
+  const handleCart = async () => {
+    const response = await wixClient.currentCart.addToCurrentCart({
+      lineItems: [
+        {
+          catalogReference: {
+            appId: process.env.NEXT_PUBLIC_WIX_APP_ID!,
+            catalogItemId: productId,
+            ...(variantId && { options: { variantId } }),
+          },
+          quantity: quantity,
+        },
+      ],
+    });
   };
 
   return (
@@ -82,7 +88,7 @@ const Add = ({
           {" "}
           <button
             disabled={stockNumber === 0}
-            onClick={() => handleCart(quantity)}
+            onClick={handleCart}
             className="border-2 border-red-dark text-red-dark rounded-full py-2 px-5 text-md font-semibold hover:text-whiteColor hover:bg-red-dark bg-whiteColor duration-500 ease-in-out w-fit disabled:cursor-not-allowed disabled:bg-red-light disabled:border-red-light disabled:text-red-300"
           >
             Add to Cart

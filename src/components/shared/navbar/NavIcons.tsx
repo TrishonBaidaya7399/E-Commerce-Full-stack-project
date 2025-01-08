@@ -2,9 +2,11 @@
 
 import CartModal from "@/components/cart/CartModal";
 import { ThemeContext } from "@/context/ThemeContext";
+import { useWixClient } from "@/hooks/useWixClient";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
@@ -14,11 +16,14 @@ import { PiUserCircle } from "react-icons/pi";
 
 function NavIcons() {
   const router = useRouter();
+  const pathName = usePathname();
+  const wixClient = useWixClient();
   const { theme, setTheme } = useContext(ThemeContext);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const isLoggedIn = false;
   const cartItems = ["1", "2"];
+  const isLoggedIn = wixClient?.auth?.loggedIn();
   const handleProfile = () => {
     if (!isLoggedIn) {
       router.push("/login");
@@ -30,6 +35,36 @@ function NavIcons() {
     setIsCartOpen((prev) => !prev);
     setIsProfileOpen(false);
   };
+
+  // AUTH WITH WIX-MANAGED AUTH --------------------------------------------------
+  // const wixClient = useWixClient();
+  // const login = async () => {
+  //   const loginRequestData = wixClient.auth.generateOAuthData(
+  //     "http://localhost:3000"
+  //   );
+
+  //   console.log(loginRequestData);
+
+  //   localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+  //   const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+  //   window.location.href = authUrl;
+  // };
+  // ------------------------------------------------------------------------------
+  const handleLogout = async () => {
+    try {
+      const response = await wixClient.auth.logout(window.location.href);
+      if (response?.logoutUrl) {
+        Cookies.remove("refreshToken");
+        setIsLoading(false);
+        setIsProfileOpen(false);
+        router.push(`/login`);
+      } else {
+        console.log("Failed to logout");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="navIcons flex items-center justify-end gap-6">
       <div className="item cursor-pointer relative" onClick={handleProfile}>
@@ -40,7 +75,12 @@ function NavIcons() {
             <Link href="/" className="cursor-pointer">
               Profile
             </Link>
-            <div className="cursor-pointer">Logout</div>
+            <div
+              className="cursor-pointer"
+              onClick={isLoggedIn ? handleLogout : () => router.push("/login")}
+            >
+              {isLoggedIn ? (isLoading ? "Logging out..." : "Logout") : "Login"}
+            </div>
           </div>
         )}
       </div>

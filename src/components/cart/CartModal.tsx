@@ -1,43 +1,17 @@
 "use client";
+import useCartStore from "@/hooks/useCartStore";
+import { useWixClient } from "@/hooks/useWixClient";
 import Image from "next/image";
-import React from "react";
-
-const cartItems = [
-  {
-    id: 1,
-    name: "Digital Incense",
-    image: "/prod_1.avif",
-    price: 40.5,
-    qty: 1,
-    available: true,
-  },
-  {
-    id: 2,
-    name: "Wireless Headphones",
-    image: "/prod_2.jpg",
-    price: 90.0,
-    qty: 2,
-    available: true,
-  },
-  {
-    id: 3,
-    name: "Smart Watch",
-    image: "/prod_3.webp",
-    price: 150.0,
-    qty: 1,
-    available: false,
-  },
-  {
-    id: 4,
-    name: "Bluetooth Speaker",
-    image: "/prod_4.jpg",
-    price: 60.0,
-    qty: 1,
-    available: true,
-  },
-];
+import React, { useEffect } from "react";
 
 export default function CartModal() {
+  const wixClient = useWixClient();
+  const { cart, getCart } = useCartStore();
+  useEffect(() => {
+    getCart(wixClient);
+  }, [wixClient, getCart]);
+  console.log({ CartData: cart.lineItems?.length });
+
   return (
     <div className="profile_dropdown absolute top-[50px] right-1 text-md font-semibold shadow-xl shadow-gray rounded-md z-20 p-6 w-[300px] md:w-[400px] flex flex-col gap-6 bg-whiteColor border-[1px] border-line_color">
       <div className="cart_title text-black text-xl font-semibold text-left">
@@ -45,10 +19,11 @@ export default function CartModal() {
       </div>
 
       {/* Wrapping the items in a scrollable div */}
-      <div
+      {/* <div
         className={`product_list max-h-[300px] ${
-          cartItems.length > 2 ?
-          "overflow-y-auto border-[1px] border-line_color p-2 pr-0 rounded-md custom-scrollbar" : "gap-4"
+          cartItems.length > 2
+            ? "overflow-y-auto border-[1px] border-line_color p-2 pr-0 rounded-md custom-scrollbar"
+            : "gap-4"
         } flex flex-col gap-2`}
       >
         {cartItems.map((item) => (
@@ -96,9 +71,9 @@ export default function CartModal() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
-      <div className="subtotal">
+      {/* <div className="subtotal">
         <div className="flex items-center justify-between text-black font-bold">
           <p>Subtotal</p>
           <p>
@@ -111,7 +86,7 @@ export default function CartModal() {
         <p className="text-gray-400">
           Shipping and taxes calculated at checkout
         </p>
-      </div>
+      </div> */}
 
       <div className="buttons_part flex flex-row items-center justify-between">
         <button className="bg-transparent text-sm text-black font-semibold flex items-center justify-center border-2 border-gray-light rounded-md h-[50px] px-6 py-auto">

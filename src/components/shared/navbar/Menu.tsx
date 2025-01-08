@@ -5,7 +5,9 @@ import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import SearchBar from "./SearchBar";
-import NavIcons from "./NavIcons";
+import dynamic from "next/dynamic";
+// import NavIcons from "./NavIcons";
+const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
 export default function Menu() {
   const [open, setOpen] = useState(false);
@@ -14,7 +16,9 @@ export default function Menu() {
       {/* mobile screen */}
       <div className="topbar flex md:hidden item-center justify-between w-full">
         <Link href={"/"} className="flex items-center justify-center ">
-          <div className="text-2xl tracking-wide flex md:hidden">ElectroMart</div>
+          <div className="text-2xl tracking-wide flex md:hidden">
+            ElectroMart
+          </div>
         </Link>
         <div className="menu_icon block md:hidden">
           {!open ? (
@@ -80,7 +84,12 @@ export default function Menu() {
         "
         >
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="electromart dev" width={24} height={24} />
+            <Image
+              src="/logo.png"
+              alt="electromart dev"
+              width={24}
+              height={24}
+            />
             <div className="text-2xl tracking-wide">ElectroMart</div>
           </Link>
           <div className="hidden xl:flex items-center gap-6">
