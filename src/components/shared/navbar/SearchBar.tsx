@@ -10,9 +10,8 @@ export default function SearchBar() {
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     if (name) {
-      router.push(`/list?quey=${name}`);
+      router.push(`/list?name=${name}`);
     }
-    console.log("search");
   };
   return (
     <form

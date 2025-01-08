@@ -36,7 +36,9 @@ const listPage = async ({
       {/* filter */}
       <Filter />
       {/* products */}
-      <h2 className="mt-12 text-xl font-semibold">Products for you</h2>
+      <h2 className="mt-12 text-xl font-semibold">
+        {allCategories?.collection?.name} for you
+      </h2>
       {allCategories?.collection?._id ? (
         <Suspense fallback={"Loading..."}>
           <ProductList
