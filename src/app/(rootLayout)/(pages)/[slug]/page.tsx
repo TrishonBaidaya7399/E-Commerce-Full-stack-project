@@ -35,11 +35,11 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           {product?.priceData?.price !==
             product?.priceData?.discountedPrice && (
             <h3 className="text-xl text-gray-400 line-through">
-              {product?.priceData?.price}৳
+              {product?.priceData?.price}$
             </h3>
           )}
           <h2 className="text-2xl font-medium text-gray-dark">
-            {product?.priceData?.discountedPrice}৳
+            {product?.priceData?.discountedPrice}$
           </h2>
         </div>
         <div className="divider h-[2px] bg-divider_color rounded-full" />

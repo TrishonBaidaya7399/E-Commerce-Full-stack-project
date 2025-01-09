@@ -43,6 +43,7 @@ const ProductList = async ({
   }
   const allProducts = await productQuery.find();
   console.log(allProducts);
+  console.log(searchParams);
 
   return (
     <div className="flex flex-col ">
@@ -98,11 +99,13 @@ const ProductList = async ({
           </Link>
         ))}
       </div>
-      <Pagination
-        currentPage={allProducts?.currentPage || 0}
-        hasPrev={allProducts?.hasPrev()}
-        hasNext={allProducts?.hasNext()}
-      />
+      {searchParams?.cat && (
+        <Pagination
+          currentPage={allProducts?.currentPage || 0}
+          hasPrev={allProducts?.hasPrev()}
+          hasNext={allProducts?.hasNext()}
+        />
+      )}
     </div>
   );
 };

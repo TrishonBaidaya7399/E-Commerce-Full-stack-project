@@ -18,16 +18,22 @@ type CartState = {
 };
 const useCartStore = create<CartState>((set) => ({
   cart: [],
-  isLoading: true,
+  isLoading: false,
   error: "",
   counter: 0,
   getCart: async (wixClient) => {
-    const cart = await wixClient.currentCart.getCurrentCart();
-    set({
-      cart: cart || [],
-      isLoading: false,
-      counter: cart?.lineItems?.length || 0,
-    });
+    try {
+      set((state) => ({ ...state, isLoading: true }));
+      const cart = await wixClient.currentCart.getCurrentCart();
+      set({
+        cart: cart || [],
+        isLoading: false,
+        counter: cart?.lineItems?.length || 0,
+      });
+    } catch (error) {
+      console.error(error);
+      set((state) => ({ ...state, isLoading: false }));
+    }
   },
   addItem: async (wixClient, productId, variantId, quantity) => {
     set((state) => ({ ...state, isLoading: true }));

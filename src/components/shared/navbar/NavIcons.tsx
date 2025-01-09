@@ -81,15 +81,21 @@ function NavIcons() {
         {/* profile open dropdown */}
         {isProfileOpen && (
           <div className="profile_dropdown absolute top-[50px] right-2 flex flex-col gap-2 text-md font-semibold text-gray-dark shadow-xl shadow-gray px-8 py-2 rounded-md z-20 bg-whiteColor border-[1px] border-line_color">
-            <Link href="/" className="cursor-pointer">
+            <Link href="/profile" className="cursor-pointer">
               Profile
             </Link>
-            <div
-              className="cursor-pointer"
-              onClick={isLoggedIn ? handleLogout : () => router.push("/login")}
-            >
-              {isLoggedIn ? (isLoading ? "Logging out..." : "Logout") : "Login"}
-            </div>
+            {isLoggedIn ? (
+              <div className="cursor-pointer" onClick={() => handleLogout()}>
+                {isLoading ? "Logging out..." : "Logout"}
+              </div>
+            ) : (
+              <div
+                className="cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </div>
+            )}
           </div>
         )}
       </div>
