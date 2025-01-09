@@ -7,12 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { IoMoonOutline } from "react-icons/io5";
 import { PiUserCircle } from "react-icons/pi";
+import useCartStore from "@/hooks/useCartStore";
 
 function NavIcons() {
   const router = useRouter();
@@ -65,6 +66,14 @@ function NavIcons() {
       console.log(error);
     }
   };
+
+  // cart data ------------------------------------
+
+  const { counter, getCart } = useCartStore();
+
+  useEffect(() => {
+    getCart(wixClient);
+  }, [wixClient, getCart]);
   return (
     <div className="navIcons flex items-center justify-end gap-6">
       <div className="item cursor-pointer relative" onClick={handleProfile}>
@@ -92,10 +101,10 @@ function NavIcons() {
           <HiOutlineBellAlert size="30" />
         </div>
       </div>
-      <div className="item cursor-pointer relative">
+      <div className="item relative">
         <div className="relative">
           <div className="absolute -top-2 left-4 w-5 h-5 rounded-full bg-red-dark text-whiteColor text-sm text-center">
-            1
+            {counter}
           </div>
           <BsCart3 size="30" onClick={handleCart} />
         </div>
