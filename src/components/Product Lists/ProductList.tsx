@@ -47,12 +47,12 @@ const ProductList = async ({
 
   return (
     <div className="flex flex-col ">
-      <div className="gap-x-8 gap-y-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="gap-x-4 gap-y-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {allProducts?.items?.map((product: products.Product) => (
           <Link
             key={product?._id}
             href={"/" + product?.slug}
-            className="w-full flex flex-col gap-4 bg-whiteColor backdrop-blur-sm  p-4 rounded-lg"
+            className="w-full h-full flex flex-col gap-4 bg-whiteColor backdrop-blur-sm  p-4 rounded-lg"
           >
             <div className="relative w-full h-80">
               <Image
@@ -81,7 +81,7 @@ const ProductList = async ({
             </div>
             {product?.description && (
               <div
-                className="text-sm text-gray-500"
+                className="text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap w-full max-h-[80px]"
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(
                     product?.additionalInfoSections?.find(
@@ -93,7 +93,7 @@ const ProductList = async ({
                 }}
               ></div>
             )}
-            <button className="border-2 border-red-dark text-red-dark rounded-full py-2 px-5 text-md font-semibold hover:text-whiteColor hover:bg-red-dark duration-500 ease-in-out w-fit">
+            <button className="border-2 border-red-dark text-red-dark rounded-full py-2 px-5 text-md font-semibold hover:text-whiteColor hover:bg-red-dark duration-500 ease-in-out w-fit mt-auto">
               Add to cart
             </button>
           </Link>
